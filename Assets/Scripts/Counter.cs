@@ -7,12 +7,22 @@ public class Counter : MonoBehaviour
 {
     private int _currentValue;
     private Coroutine _coroutine;
+    private float _delay;
 
     public event Action<int> ValueChanged;
 
     private void Start()
     {
         _currentValue = 0;
+        _delay = 0.5f;
+    }
+
+    private void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            ActivateTimer();
+        }
     }
 
     public void ActivateTimer()
@@ -24,13 +34,13 @@ public class Counter : MonoBehaviour
         }
         else
         {
-            _coroutine = StartCoroutine(IncreaseScore());
+            _coroutine = StartCoroutine(IncreaseScore(_delay));
         }
     }
 
-    private IEnumerator IncreaseScore()
+    private IEnumerator IncreaseScore(float delay)
     {
-        WaitForSeconds wait = new WaitForSeconds(0.5f);
+        WaitForSeconds wait = new WaitForSeconds(delay);
 
         while (true)
         {
